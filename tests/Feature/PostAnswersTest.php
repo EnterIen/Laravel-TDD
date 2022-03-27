@@ -11,24 +11,31 @@ use Tests\TestCase;
 
 class PostAnswersTest extends TestCase
 {
-    use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function testPostAnswer()
-    {
-        $question = Question::factory()->create();
-        $user = User::factory()->create();
+  use RefreshDatabase;
+  /**
+   * A basic feature test example.
+   *
+   * @return void
+   */
+  public function testPostAnswer()
+  {
+    // 学会用工厂生成假数据
+    $question = Question::factory()->create();
+    $user = User::factory()->create();
 
-        $response = $this->post("/questions/{$question->id}/answers", [
-            'user_id' => $user->id,
-            'content' => 'This is an answer.'
-        ]);
+    // 学会用 post 返回的是一个 response
+    $response = $this->post("/questions/{$question->id}/answer", [
+      'user_id' => $user->id,
+      'content' => 'This is an answer.'
+    ]);
+    
+    // 首先检查回答是否成功
+    $response->assertStatus(200);
 
-        $response->assertStatus(200);
-    }
+    // 检查回答内容是否存在
+    $answer = $question->answers()->where('user_id', $user->id)->first();
+    $this->assertNotNull($answer);
+  }
 
 
 }
