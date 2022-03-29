@@ -21,7 +21,7 @@ class PostAnswersTest extends TestCase
   {
     // 学会用工厂生成假数据
     $question = Question::factory()->create();
-    $user = User::factory()->create();
+    $user     = User::factory()->create();
 
     // 学会用 post 返回的是一个 response
     $response = $this->post("/questions/{$question->id}/answer", [
