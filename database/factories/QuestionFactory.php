@@ -30,4 +30,13 @@ class QuestionFactory extends Factory
         ];
       });
     }
+
+    public function unpublished()
+    {
+      return $this->state(function (array $attributes) {
+        return [
+            'published_at' => NULL
+        ];
+      });
+    }
 }

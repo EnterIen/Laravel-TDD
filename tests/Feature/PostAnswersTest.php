@@ -37,5 +37,20 @@ class PostAnswersTest extends TestCase
     $this->assertNotNull($answer);
   }
 
+  /**
+   * @test
+   */
+  public function test_user_cannot_answer_unpublished_question()
+  {
+    $question = Question::factory()->unpublished()->create();
+    $user = User::factory()->create();
+
+    $response = $this->withExceptionHandling()->post("questions/{$question->id}/answer", [
+      'content' => 'answer',
+      'user_id' => $user->id
+    ]);
+
+    $response->assertStatus(404);
+  }
 
 }

@@ -21,6 +21,8 @@ class QuestionsController extends Controller
 
   public function store(Question $question)
   {
+    $question = Question::published()->findOrFail($question->id);
+
   	$answer = $question->answers()->create([
   		'user_id' => request('user_id'),
   		'content' => request('content'),
