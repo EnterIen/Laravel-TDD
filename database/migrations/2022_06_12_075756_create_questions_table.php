@@ -18,7 +18,6 @@ class CreateQuestionsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('title');
             $table->text('content');
-            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }
