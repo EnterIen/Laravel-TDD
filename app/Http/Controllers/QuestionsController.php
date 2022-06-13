@@ -7,6 +7,11 @@ use App\Models\Question;
 
 class QuestionsController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
+
   public function index()
   {
   	
@@ -19,15 +24,17 @@ class QuestionsController extends Controller
   	return view('questions.show', compact('question'));
   }
 
-  // public function store(Question $question)
-  // {
-  //   $question = Question::published()->findOrFail($question->id);
+  public function store(Question $question)
+  {
+    $this->validate(request(), [
+      'content' => 'required|string'
+    ]);
 
-  // 	$answer = $question->answers()->create([
-  // 		'user_id' => request('user_id'),
-  // 		'content' => request('content'),
-  // 	]);
+  	$answer = $question->answers()->create([
+      'user_id' => auth()->id(),
+  		'content' => request('content'),
+  	]);
 
-  // 	return response()->json([], 200);
-  // }
+  	return response()->json([], 200);
+  }
 }

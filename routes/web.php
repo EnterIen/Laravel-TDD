@@ -17,6 +17,12 @@ Route::get('/', function () {
   return view('welcome');
 });
 
+Auth::routes();
+
 Route::get('/questions', 'QuestionsController@index');
 Route::get('/questions/{question}', 'QuestionsController@show');
-// Route::post('/questions/{question}/answer', 'QuestionsController@store');
+Route::post('/questions/{question}/answer', 'QuestionsController@store');
+
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

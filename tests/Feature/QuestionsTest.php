@@ -22,6 +22,8 @@ class QuestionsTest extends TestCase
    * 6. 可以运行全部测试、指定目录下测试(路径)、指定文件下测试(路径)、指定单个测试(--filter)
    * 7. 开始引入测试数据：学会使用工厂、seeder
    * 8. 测试数据的隔离性：RefreshDatabase
+   * 9. 涉及到业务逻辑就会产生模型关联:assertInstanceOf
+   * 10 $this->expectException('Illuminate\Validation\ValidationException');  // 断言会产生什么异常
    * 
    */
 
