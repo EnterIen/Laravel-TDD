@@ -22,6 +22,9 @@ Auth::routes();
 Route::get('/questions', 'QuestionsController@index');
 Route::get('/questions/{question}', 'QuestionsController@show');
 Route::post('/questions/{question}/answer', 'QuestionsController@store');
+Route::delete('questions/answers/{answer}', 'QuestionsController@destroy')->name('answers.destroy');
+Route::get('/questions/answers', 'QuestionsController@answerList');
+
 
 
 

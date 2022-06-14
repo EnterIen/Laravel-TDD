@@ -24,7 +24,7 @@ class QuestionsTest extends TestCase
    * 8. 测试数据的隔离性：RefreshDatabase
    * 9. 涉及到业务逻辑就会产生模型关联:assertInstanceOf
    * 10 $this->expectException('Illuminate\Validation\ValidationException');  // 断言会产生什么异常
-   * 
+   * 11 模拟登录：$this->actingAs($user = User::factory()->create());
    */
 
 

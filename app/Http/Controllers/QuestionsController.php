@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Question;
+use App\Models\Answer;
 
 class QuestionsController extends Controller
 {
@@ -21,6 +22,8 @@ class QuestionsController extends Controller
   {
     // $question = Question::whereNotNull('published_at')->findOrFail($question->id);
 
+    return Question::with(['answers'])->find($question->id);
+
   	return view('questions.show', compact('question'));
   }
 
@@ -36,5 +39,16 @@ class QuestionsController extends Controller
   	]);
 
   	return response()->json([], 200);
+  }
+
+  public function destroy(Answer $answer)
+  {
+    if (auth()->id() != $answer->user_id) {
+      return response()->json([], 403);
+    }
+
+    $answer->delete();
+
+    return response()->json([], 200);
   }
 }
