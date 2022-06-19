@@ -102,5 +102,10 @@ class AnswerTest extends TestCase
 
     // dd($result);
   }
+
+  public function test_helper_file()
+  {
+    dd(route_class());
+  }
   
 }
