@@ -107,5 +107,26 @@ class AnswerTest extends TestCase
   {
     dd(route_class());
   }
+
+  public function test_answer_vote()
+  {
+    $this->signIn();
+
+    $answer = create(Answer::class);
+    // dd($answer->vote);
+
+    $this->post("answer/{$answer->id}/vote/up")->assertStatus(200);
+
+    $this->assertDatabaseHas('votes', [
+      'user_id' => auth()->id(),
+      'voted_id' => $answer->id,
+      'voted_type' => get_class($answer),
+      'type' => 'vote_up',
+    ]);
+
+    // $this->assertCount(0, $answer->refresh()->votes('vote_up')->get());
+
+    // dd($answer->vote);
+  }
   
 }
