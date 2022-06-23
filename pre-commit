@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+array=$(git status -s)
+
+for var in $array
+do
+  if [ $var = "M" ] || [ $var = "A" ] || [ $var = "D" ] || [ $var = "??" ]; then
+    continue
+  fi
+  if [[ ! $var =~ ".php" ]]; then
+    continue
+  fi
+
+  # phplint
+  # if [ $1 = "--is_open_lint" ] && [ $2 = true ]; then
+  phplintResult=`./vendor/bin/phplint --no-cache $var | grep error`
+  if [ x"$phplintResult" != x ]; then
+    echo "-------------------------------------"
+    echo "commit error, get phplint errors:"
+    ./vendor/bin/phplint --no-cache $var | while read line
+    do
+      echo $line
+    done
+    echo "-------------------------------------"
+    exit 1
+  fi
+  # fi
+
+  # phpcs
+  phpcsResult=`phpcs --standard=PSR2 $var | grep ERRORS`
+  if [ x"$phpcsResult" != x ]; then 
+    echo "-------------------------------------"
+    echo "commit error, get phpcs errors:"
+    phpcs --standard=PSR2 $var | while read line 
+    do 
+      echo $line
+    done
+    echo "-------------------------------------"
+    exit 1
+  fi
+done
+echo "√ commit success !"
+exit 0

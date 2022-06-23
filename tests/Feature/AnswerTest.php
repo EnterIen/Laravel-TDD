@@ -88,45 +88,45 @@ class AnswerTest extends TestCase
     ->assertStatus(403);      // [注意这里必须是数字哈]
   }
 
-  public function test_question_answer_list()
-  {
-    $this->signIn();
+  // public function test_question_answer_list()
+  // {
+  //   $this->signIn();
 
-    $question = create(Question::class);
+  //   $question = create(Question::class);
 
-    $answers =  create(Answer::class, ['question_id' => $question->id], 10);
+  //   $answers =  create(Answer::class, ['question_id' => $question->id], 10);
 
-    $response = $this->get("/questions/{$question->id}");
+  //   $response = $this->get("/questions/{$question->id}");
 
-    // $result = $response->data('answers')->toArray();
+  //   // $result = $response->data('answers')->toArray();
 
-    // dd($result);
-  }
+  //   // dd($result);
+  // }
 
-  public function test_helper_file()
-  {
-    dd(route_class());
-  }
+  // public function test_helper_file()
+  // {
+  //   dd(route_class());
+  // }
 
-  public function test_answer_vote()
-  {
-    $this->signIn();
+  // public function test_answer_vote()
+  // {
+  //   $this->signIn();
 
-    $answer = create(Answer::class);
-    // dd($answer->vote);
+  //   $answer = create(Answer::class);
+  //   // dd($answer->vote);
 
-    $this->post("answer/{$answer->id}/vote/up")->assertStatus(200);
+  //   $this->post("answer/{$answer->id}/vote/up")->assertStatus(200);
 
-    $this->assertDatabaseHas('votes', [
-      'user_id' => auth()->id(),
-      'voted_id' => $answer->id,
-      'voted_type' => get_class($answer),
-      'type' => 'vote_up',
-    ]);
+  //   $this->assertDatabaseHas('votes', [
+  //     'user_id' => auth()->id(),
+  //     'voted_id' => $answer->id,
+  //     'voted_type' => get_class($answer),
+  //     'type' => 'vote_up',
+  //   ]);
 
-    // $this->assertCount(0, $answer->refresh()->votes('vote_up')->get());
+  //   // $this->assertCount(0, $answer->refresh()->votes('vote_up')->get());
 
-    // dd($answer->vote);
-  }
+  //   // dd($answer->vote);
+  // }
   
 }

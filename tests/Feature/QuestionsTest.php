@@ -35,7 +35,8 @@ class QuestionsTest extends TestCase
    */
   public function testQuestions()
   {
-    $this->withoutExceptionHandling();
+    $this->signIn();
+    // $this->withoutExceptionHandling();
 
     $response = $this->get('questions');
 
@@ -49,6 +50,7 @@ class QuestionsTest extends TestCase
    */
   public function test_question_list()
   {
+    $this->signIn();
     $this->withoutExceptionHandling();
 
     $response = $this->get('questions');
@@ -63,6 +65,7 @@ class QuestionsTest extends TestCase
    */
   public function test_question_detail()
   {
+    $this->signIn();
     $question = Question::factory()->create();
 
     $response =  $this->get('questions/' . $question->id);
